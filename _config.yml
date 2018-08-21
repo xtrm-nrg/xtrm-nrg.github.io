@@ -44,3 +44,4 @@ plugins:
 
 #theme specific
 paginate: 5
+remote_theme: fongandrew/hydeout
