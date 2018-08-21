@@ -1,0 +1,106 @@
+---
+layout: post
+status: publish
+published: true
+title: Fitnesse + FitSharp Trials & Tribulations
+author:
+  display_name: admin
+  login: cpoconno
+  email: chris.oconnor@xtrm-nrg.com
+  url: ''
+author_login: cpoconno
+author_email: chris.oconnor@xtrm-nrg.com
+wordpress_id: 19
+wordpress_url: http://xtrm-nrg.com/?p=19
+date: '2011-05-13 08:27:38 -0400'
+date_gmt: '2011-05-13 15:27:38 -0400'
+categories:
+- Uncategorized
+tags:
+- fit
+- fitnesse
+- slim
+- visual studio
+- namespaces
+- CamelCase
+- Could not find class
+- FitSharp
+- ".Net"
+comments:
+- id: 44
+  author: Slim Jim
+  author_email: dummy@dummy.com
+  author_url: http://pastebin.com/gmG0cXpp
+  date: '2013-01-28 12:57:50 -0500'
+  date_gmt: '2013-01-28 19:57:50 -0500'
+  content: "FitNesse's wikification mechanisms will try and parse the namespace definition
+    as it is camel-case format.\r\n\r\nPrefix the *import* table with '!' to prevent
+    these wikification mechanisms.\r\n\r\n!| import |\r\n | UpperCaseNameSpace |\r\n\r\nIn
+    your post you place the '!' at the beginning of the second row and therefore it
+    doesn't work as expected."
+- id: 130
+  author: http://restaurantsnearme.space
+  author_email: daciashields@gmail.com
+  author_url: http://restaurantsnearme.space
+  date: '2015-06-25 17:22:10 -0400'
+  date_gmt: '2015-06-26 00:22:10 -0400'
+  content: "Howdy, I do believe your website could be having internet browser compatibility
+    issues.\r\nWhenever I take a look at your site in Safari, it looks fine however,\r\nif
+    opening in IE, it has some overlapping issues. I merely wanted to give you a quick
+    heads \r\nup! Other than that, great blog!"
+- id: 172
+  author: dien dan rao vat chat luong
+  author_email: lenadowell@yahoo.com
+  author_url: https://landvoicelearning.com/
+  date: '2016-06-03 22:05:31 -0400'
+  date_gmt: '2016-06-04 05:05:31 -0400'
+  content: "Hello there, There's no doubt that your blog may be having browser \r\ncompatibility
+    problems. When I look at your blog in Safari, it looks fine however, if opening
+    in IE, \r\nit has some overlapping issues. I simply wanted to provide you with
+    a quick heads up!\r\n\r\nOther than that, excellent site!"
+- id: 173
+  author: gymkhana 3 video
+  author_email: mildredgerard@web.de
+  author_url: http://www.Rhein-Nahe-Fitness.de
+  date: '2016-06-06 21:09:57 -0400'
+  date_gmt: '2016-06-07 04:09:57 -0400'
+  content: "Hello very cool site!! Guy .. Beautiful ..\r\nAmazing .. I will bookmark
+    your web site and take \r\nthe feeds also? I am satisfied to search out so many
+    useful info right here in the post, \r\nwe want develop more techniques on this
+    \r\nregard, thank you for sharing. . . . . ."
+- id: 183
+  author: Pirate Kings
+  author_email: 42369JewellDuignan@yahoo.com
+  author_url: http://seethekaleidoscopemirror.tumblr.com
+  date: '2016-07-24 15:38:39 -0400'
+  date_gmt: '2016-07-24 22:38:39 -0400'
+  content: This post on the topic of how to embed a YouTube video code is really valuable
+    designed for fresh internet access visitors. Pleasant work, keep it up.
+---
+<p>So I recently resurrected a fitnesse project for a .Net project. I updated from 20101015 to 20110104. I also updated to the 1.9 release of FitSharp. I found that suddenly my old fixtures were unable to find the classes/types ("Could not find class"). After much investigation and digging around I discovered the following...</p>
+<p>It appears as though namespaces that begin with a Upper case letter don't work with the import command. Even if you prepend the line with a !.</p>
+<p>So</p>
+<p>|import|<br />
+|UpperCaseNameSpace|</p>
+<p>|SomeClass|<br />
+|someMethod?|<br />
+|true|</p>
+<p>fails to find the SomeClass type upon execution</p>
+<p>|import|<br />
+!|UpperCaseNameSpace|</p>
+<p>|SomeClass|<br />
+|someMethod?|<br />
+|true|</p>
+<p>also fails to find the SomeClass type</p>
+<p>but</p>
+<p>!|UpperCaseNameSpace.SomeClass|<br />
+|someMethod?|<br />
+|true|</p>
+<p>works.</p>
+<p>As does making the namespace start with a lowercase letter...</p>
+<p>|import|<br />
+|upperCaseNameSpace|</p>
+<p>|SomeClass|<br />
+|someMethod?|<br />
+|true|</p>
+<p>It really seems like import should handle upper case namespaces and/or prefacing the line with a !. Without digging further I am not sure if this falls on the slim side of things or if it's just the interaction with wiki syntax or some combination thereof.&nbsp; Anyway props to Owen over here at http://www.oweng.net/Visual-Studio-2010/Coded-UI-Fitnesse/integrating-coded-ui-and-fitnesse-fitsharp-slim-2.aspx who's post got me close enough to the problem to take the last couple steps and to this blog http://www.asoftwarecraft.com/2010/01/troubleshooting-with-fitsharp-and.html that showed the way to see behind the curtain. Here's hoping this helps others.</p>
